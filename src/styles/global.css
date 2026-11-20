@@ -1,0 +1,94 @@
+:root {
+  color-scheme: light;
+
+  --surface-100: #fafaf9;
+  --surface-raised: #ffffff;
+  --surface-sunken: #f0f0ee;
+  --border: #dcdcd8;
+  --border-strong: #8a8a84;
+  --ink: #1c1c1a;
+  --ink-muted: #4d4d47;
+  --ink-subtle: #62625b;
+  --accent: #1f4e79;
+  --accent-hover: #163a5a;
+  --on-accent: #ffffff;
+
+  --font-family-sans:
+    "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-family-mono:
+    "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  --font-size-display: 44px;
+  --line-height-display: 52px;
+  --font-weight-display: 600;
+  --letter-spacing-display: -0.01em;
+
+  --font-size-h2: 24px;
+  --line-height-h2: 32px;
+  --font-weight-h2: 600;
+
+  --font-size-h3: 20px;
+  --line-height-h3: 28px;
+  --font-weight-h3: 600;
+
+  --font-size-body-lg: 20px;
+  --line-height-body-lg: 28px;
+  --font-weight-body-lg: 400;
+
+  --font-size-body: 16px;
+  --line-height-body: 24px;
+  --font-weight-body: 400;
+
+  --font-size-caption: 12px;
+  --line-height-caption: 16px;
+  --font-weight-caption: 400;
+
+  --font-size-label: 12px;
+  --line-height-label: 16px;
+  --font-weight-label: 500;
+  --letter-spacing-label: 0.04em;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --content-width: 720px;
+  --page-width: 1040px;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+
+  --shadow-sm: 0 4px 8px rgba(28, 28, 26, 0.08);
+}
+
+html,
+body {
+  min-height: 100%;
+  background-color: var(--surface-100);
+}
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --surface-100: #161615;
+  --surface-raised: #1f1f1d;
+  --surface-sunken: #111110;
+  --border: #34342f;
+  --border-strong: #74746c;
+  --ink: #ececea;
+  --ink-muted: #b4b4ac;
+  --ink-subtle: #9d9d95;
+  --accent: #8fb4d9;
+  --accent-hover: #b3cde8;
+  --on-accent: #111110;
+
+  --shadow-sm: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+body {
+  background-color: var(--surface-100);
+}
