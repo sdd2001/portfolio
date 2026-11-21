@@ -2,12 +2,30 @@
 import Header from "../components/header.astro";
 import "../styles/global.css";
 import * as profile from "../../profile/profile.md";
+import ProjectCard from "../components/project-card.astro";
 const { title } = Astro.props;
 
-const images = import.meta.glob<ImageMetadata>('../images/*.jpg', {
+const images = import.meta.glob<ImageMetadata>("../images/*.jpg", {
   eager: true,
-  import: 'default',
-})
+  import: "default",
+});
+
+const showTestCard = false;
+
+const testSkillStack = [
+  {
+    name: "React",
+    backgroundColour: "#e2ebf8",
+    textColour: "#0e3162",
+    borderColour: "#b0c3dd",
+  },
+  {
+    name: "Typescript",
+    backgroundColour: "#e2f8f6",
+    textColour: "#0e625b",
+    borderColour: "#b0ddda",
+  },
+];
 
 function getProfileImage(): ImageMetadata {
   const image = images[`../images/${profile.frontmatter.image}`];
@@ -25,10 +43,23 @@ function getProfileImage(): ImageMetadata {
   </head>
   <body>
     <Header
-      name={ profile.frontmatter.name }
-      about={ profile.rawContent() }
-      jobTitle={ profile.frontmatter.jobTitle }
+      name={profile.frontmatter.name}
+      about={profile.rawContent()}
+      jobTitle={profile.frontmatter.jobTitle}
       profilePicture={getProfileImage()}
     />
+    {showTestCard && (
+      <div style="padding: 24px">
+        <ProjectCard
+          projectImage={getProfileImage()}
+          employer="Test employer"
+          projectName="Test project"
+          projectDescription="This is a random description about a test project. This has no added value whatsoever!"
+          skillStack={testSkillStack}
+          site="https://www.linkedin.com/in/sean-de-decker-03b4a8221/"
+          sourceCode="https://github.com/sdd2001/portfolio"
+        />
+      </div>
+    )}
   </body>
 </html>
