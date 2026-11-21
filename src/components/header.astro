@@ -34,8 +34,8 @@ const { profilePicture, name, about, jobTitle, } = Astro.props;
         display: flex;
         flex-direction: row;
         justify-content: center;
-        padding-top: var(--space-9);
-        padding-bottom: var(--space-8);
+        padding: var(--space-9) var(--space-6) var(--space-8);
+        background-color: var(--surface-100);
     }
 
     .header-content {
@@ -43,6 +43,7 @@ const { profilePicture, name, about, jobTitle, } = Astro.props;
         flex-direction: row;
         justify-content: center;
         align-items: center;
+        width: 100%;
         max-width: var(--page-width);
         gap: var(--space-7);
     }
@@ -50,6 +51,7 @@ const { profilePicture, name, about, jobTitle, } = Astro.props;
     .profile-info {
         display: flex;
         flex-direction: column;
+        min-width: 0;
         gap: var(--space-1)
     }
 
@@ -80,6 +82,36 @@ const { profilePicture, name, about, jobTitle, } = Astro.props;
     }
 
     .profile-picture {
+        flex-shrink: 0;
+        width: min(100%, 320px);
+        height: auto;
+        aspect-ratio: 4 / 5;
+        object-fit: cover;
         border-radius: var(--radius-md);
+    }
+
+    @media (max-width: 770px) {
+        .header-content {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .page-header {
+            padding: var(--space-7) var(--space-5);
+        }
+
+        .header-content {
+            gap: var(--space-5);
+        }
+
+        .job-title {
+            padding-bottom: var(--space-1);
+        }
+
+        .name {
+            padding-bottom: var(--space-2);
+        }
     }
 </style>
