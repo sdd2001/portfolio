@@ -1,0 +1,111 @@
+---
+import Image from "astro/components/Image.astro";
+import SkillPill from "./skill-pill.astro";
+import type { SkillMap } from "../models/skill-map.ts";
+import Link from "./link.astro";
+
+interface Props {
+  projectImage: ImageMetadata;
+  employer: string;
+  projectName: string;
+  projectDescription: string;
+  skillStack: Array<SkillMap>;
+  site?: string;
+  sourceCode?: string;
+}
+
+const {
+  projectImage,
+  employer,
+  projectName,
+  projectDescription,
+  skillStack,
+  site,
+  sourceCode,
+} = Astro.props;
+---
+
+<article class="project-card">
+  <Image
+    class="project-image"
+    src={projectImage}
+    alt={projectName}
+    width={502}
+    height={251}
+    fit="cover"
+  />
+  <div class="project-content">
+    <span class="employer">{employer}</span>
+    <h3 class="project-name">{projectName}</h3>
+    <p class="project-description">{projectDescription}</p>
+    <div class="skill-stack">
+      {skillStack.map((skill) => (
+        <SkillPill skill={skill} />
+      ))}
+    </div>
+    <div class="project-links">
+      {site && (
+        <Link
+          label="Project site"
+          link={site}
+          icon="arrow-up-right-from-square"
+        />
+      )}
+      {sourceCode && (
+        <Link label="Source code" link={sourceCode} icon="github" />
+      )}
+    </div>
+  </div>
+</article>
+
+<style>
+  .project-card {
+    width: 504px;
+    background-color: var(--surface-raised);
+    border-radius: var(--radius-md);
+    border: solid 1px var(--border);
+    overflow: hidden;
+  }
+
+  .project-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-5);
+  }
+
+  .employer {
+    font-family: var(--font-family-mono), monospace;
+    font-size: var(--font-size-label);
+    line-height: var(--line-height-label);
+    font-weight: var(--font-weight-label);
+    letter-spacing: var(--letter-spacing-label);
+  }
+
+  .project-name {
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+    font-weight: var(--font-weight-h3);
+    color: var(--ink);
+  }
+
+  .project-description {
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+    font-weight: var(--font-weight-body);
+    color: var(--ink-muted);
+  }
+
+  .skill-stack {
+    display: flex;
+    flex-direction: row;
+    gap: var(--space-2);
+  }
+
+  .project-links {
+    display: flex;
+    flex-direction: row;
+    gap: var(--space-3);
+    height: 50px;
+  }
+</style>
