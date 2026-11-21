@@ -1,0 +1,33 @@
+---
+import type { SkillMap } from "../models/skill-map";
+
+interface Props {
+  skill: SkillMap;
+}
+
+const { skill } = Astro.props;
+---
+
+<span
+  class="skill-pill"
+  style={{
+    backgroundColor: skill.backgroundColour,
+    borderColor: skill.borderColour,
+    color: skill.textColour,
+  }}
+>
+  {skill.name}
+</span>
+
+<style>
+  .skill-pill {
+    border: 1px solid;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-family-mono), monospace;
+    font-size: var(--font-size-label);
+    line-height: var(--line-height-label);
+    font-weight: var(--font-weight-label);
+    letter-spacing: var(--letter-spacing-label);
+    padding: var(--space-1);
+  }
+</style>
