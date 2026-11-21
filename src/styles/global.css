@@ -71,6 +71,23 @@ body {
   min-height: 100%;
   background-color: var(--surface-100);
 }
+
+html,
+body,
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
 [data-theme="dark"] {
   color-scheme: dark;
 
@@ -91,4 +108,5 @@ body {
 
 body {
   background-color: var(--surface-100);
+  font-family: var(--font-family-sans), sans-serif;
 }

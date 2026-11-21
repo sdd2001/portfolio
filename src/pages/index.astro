@@ -1,19 +1,34 @@
 ---
 import Header from "../components/header.astro";
 import "../styles/global.css";
+import * as profile from "../../profile/profile.md";
 const { title } = Astro.props;
+
+const images = import.meta.glob<ImageMetadata>('../images/*.jpg', {
+  eager: true,
+  import: 'default',
+})
+
+function getProfileImage(): ImageMetadata {
+  const image = images[`../images/${profile.frontmatter.image}`];
+  if (!image) throw new Error(`Image not found for profile`);
+  return image;
+}
 ---
 
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
+    <title>{title}</title>
   </head>
   <body>
-    <h1>Astro</h1>
+    <Header
+      name={ profile.frontmatter.name }
+      about={ profile.rawContent() }
+      jobTitle={ profile.frontmatter.jobTitle }
+      profilePicture={getProfileImage()}
+    />
   </body>
 </html>

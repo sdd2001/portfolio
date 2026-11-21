@@ -1,0 +1,85 @@
+---
+import Image from 'astro/components/Image.astro';
+
+interface Props {
+    profilePicture: ImageMetadata
+    name: string;
+    about: string;
+    jobTitle: string;
+}
+
+const { profilePicture, name, about, jobTitle, } = Astro.props;
+---
+
+<header class="page-header">
+    <div class="header-content">
+        <div class="profile-info">
+            <span class="job-title">{ jobTitle }</span>
+            <h1 class="name">{ name }</h1>
+            <p class="about">{ about }</p>
+        </div>
+            <Image
+                    class="profile-picture"
+                    src={ profilePicture }
+                    alt={ name }
+                    width={ 320 }
+                    height={ 400 }
+                    fit='cover'
+            />
+    </div>
+</header>
+
+<style>
+    .page-header {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        padding-top: var(--space-9);
+        padding-bottom: var(--space-8);
+    }
+
+    .header-content {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        max-width: var(--page-width);
+        gap: var(--space-7);
+    }
+
+    .profile-info {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-1)
+    }
+
+    .job-title {
+        font-family: var(--font-family-mono), monospace;
+        font-size: var(--font-size-label);
+        line-height: var(--line-height-label);
+        font-weight: var(--font-weight-label);
+        letter-spacing: var(--letter-spacing-label);
+        color: var(--ink-subtle);
+        padding-bottom: var(--space-2);
+    }
+
+    .name {
+        font-size: var(--font-size-display);
+        line-height: var(--line-height-display);
+        font-weight: var(--font-weight-display);
+        letter-spacing: var(--letter-spacing-display);
+        color: var(--ink);
+        padding-bottom: var(--space-4);
+    }
+
+    .about {
+        font-size: var(--font-size-body-lg);
+        line-height: var(--line-height-body-lg);
+        font-weight: var(--font-weight-body-lg);
+        color: var(--ink-muted);
+    }
+
+    .profile-picture {
+        border-radius: var(--radius-md);
+    }
+</style>
