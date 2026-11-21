@@ -1,0 +1,71 @@
+---
+import { icon as renderIcon } from "@fortawesome/fontawesome-svg-core";
+import { fab } from "@fortawesome/free-brands-svg-icons";
+import { far } from "@fortawesome/free-regular-svg-icons";
+import { fas } from "@fortawesome/free-solid-svg-icons";
+
+interface Props {
+  label: string;
+  link: string;
+  icon?: string;
+}
+
+const { label, link, icon } = Astro.props;
+const iconDefinition =
+  icon !== undefined
+    ? [fas, fab, far]
+        .flatMap((pack) => Object.values(pack))
+        .find((definition) => definition.iconName === icon)
+    : undefined;
+
+if (icon !== undefined && !iconDefinition) {
+  throw new Error(`Unknown Font Awesome icon: ${icon}`);
+}
+
+const iconHtml = iconDefinition
+  ? renderIcon(iconDefinition, {
+      attributes: { "aria-hidden": "true" },
+      styles: { width: "1em", height: "1em" },
+    }).html.join("")
+  : undefined;
+---
+
+<a href={link} class="link-container" target="_blank" rel="noopener noreferrer">
+  <span class="link-text">{label}</span>
+  {iconHtml && <Fragment class="icon" set:html={iconHtml} />}
+</a>
+
+<style>
+  .link-container {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3) 0;
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+    font-weight: var(--font-weight-body);
+    color: var(--accent);
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .link-container:hover {
+    color: var(--accent-hover);
+  }
+
+  .link-container:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 0;
+  }
+
+  .link-container .icon {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    flex: none;
+    fill: currentColor;
+    vertical-align: -0.125em;
+  }
+</style>
