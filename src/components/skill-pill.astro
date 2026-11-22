@@ -5,18 +5,23 @@ interface Props {
   skill: SkillMap;
 }
 
-const { skill } = Astro.props;
+const {
+  name,
+  backgroundColour,
+  textColour,
+  borderColour,
+} = Astro.props.skill;
 ---
 
 <span
   class="skill-pill"
   style={{
-    backgroundColor: skill.backgroundColour,
-    borderColor: skill.borderColour,
-    color: skill.textColour,
+    backgroundColor: backgroundColour,
+    borderColor: borderColour,
+    color: textColour,
   }}
 >
-  {skill.name}
+  {name}
 </span>
 
 <style>
