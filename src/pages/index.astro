@@ -3,6 +3,8 @@ import Header from "../components/header.astro";
 import "../styles/global.css";
 import * as profile from "../../profile/profile.md";
 import ProjectCard from "../components/project-card.astro";
+import type { ProjectInfo } from "../models/project-info.ts";
+import ProjectSection from "../components/project-section.astro";
 const { title } = Astro.props;
 
 const images = import.meta.glob<ImageMetadata>("../images/*.jpg", {
@@ -10,7 +12,7 @@ const images = import.meta.glob<ImageMetadata>("../images/*.jpg", {
   import: "default",
 });
 
-const showTestCard = false;
+const showTestCard = true;
 
 const testSkillStack = [
   {
@@ -32,6 +34,33 @@ function getProfileImage(): ImageMetadata {
   if (!image) throw new Error(`Image not found for profile`);
   return image;
 }
+
+const testProjects: Array<ProjectInfo> = [
+  {
+    projectImage: getProfileImage(),
+    employer: "Test employer",
+    projectName: "Test project 1",
+    projectDescription: "This is a random description about a test project. This has no added value whatsoever!",
+    skillStack: testSkillStack,
+    site: "https://www.linkedin.com/in/sean-de-decker-03b4a8221/",
+    sourceCode: "https://github.com/sdd2001/portfolio",
+  },
+  {
+    projectImage: getProfileImage(),
+    employer: "Another test employer",
+    projectName: "Test project 2",
+    projectDescription: "A second test project, here to check how multiple cards render next to each other.",
+    skillStack: testSkillStack,
+    site: "https://www.linkedin.com/in/sean-de-decker-03b4a8221/",
+  },
+  {
+    projectImage: getProfileImage(),
+    employer: "Test employer",
+    projectName: "Test project 3",
+    projectDescription: "A third test project without links, to check the card layout when optional fields are missing.",
+    skillStack: [testSkillStack[0]],
+  },
+];
 ---
 
 <html lang="en">
@@ -49,17 +78,7 @@ function getProfileImage(): ImageMetadata {
       profilePicture={getProfileImage()}
     />
     {showTestCard && (
-      <div style="padding: 24px">
-        <ProjectCard
-          projectImage={getProfileImage()}
-          employer="Test employer"
-          projectName="Test project"
-          projectDescription="This is a random description about a test project. This has no added value whatsoever!"
-          skillStack={testSkillStack}
-          site="https://www.linkedin.com/in/sean-de-decker-03b4a8221/"
-          sourceCode="https://github.com/sdd2001/portfolio"
-        />
-      </div>
+      <ProjectSection sectionTitle="Test projects"  projects={testProjects} eyebrow="testing" sectionSummary="This is a test for the project section component" />
     )}
   </body>
 </html>
