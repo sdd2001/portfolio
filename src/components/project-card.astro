@@ -3,15 +3,10 @@ import Image from "astro/components/Image.astro";
 import SkillPill from "./skill-pill.astro";
 import type { SkillMap } from "../models/skill-map.ts";
 import Link from "./link.astro";
+import type { ProjectInfo } from "../models/project-info.ts";
 
 interface Props {
-  projectImage: ImageMetadata;
-  employer: string;
-  projectName: string;
-  projectDescription: string;
-  skillStack: Array<SkillMap>;
-  site?: string;
-  sourceCode?: string;
+  projectInfo: ProjectInfo
 }
 
 const {
@@ -22,7 +17,7 @@ const {
   skillStack,
   site,
   sourceCode,
-} = Astro.props;
+} = Astro.props.projectInfo;
 ---
 
 <article class="project-card">
@@ -60,11 +55,19 @@ const {
 
 <style>
   .project-card {
-    width: 504px;
+    width: 100%;
     background-color: var(--surface-raised);
     border-radius: var(--radius-md);
     border: solid 1px var(--border);
     overflow: hidden;
+  }
+
+  .project-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 2 / 1;
+    object-fit: cover;
   }
 
   .project-content {
