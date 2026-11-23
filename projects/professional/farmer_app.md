@@ -1,7 +1,7 @@
 ---
 projectImage: farmer-app.jpg
 employer: "Farmdesk"
-projectName: "Farmer web tool"
+projectName: "Farmer mobile app"
 skillStack:
   - name: "React Native"
     backgroundColour: "#e2f6f9"
