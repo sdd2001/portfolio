@@ -2,45 +2,22 @@
 import Header from "../components/header.astro";
 import "../styles/global.css";
 import * as profile from "../../profile/profile.md";
-import ProjectCard from "../components/project-card.astro";
 import type { ProjectInfo } from "../models/project-info.ts";
 import ProjectSection from "../components/project-section.astro";
-import type { MarkdownInstance } from "astro";
+import {
+  fileMapper,
+  professionalProjectFiles,
+  schoolProjectFiles,
+} from "../helper/project-import.ts";
+import { getImage } from "../helper/images.ts";
 const { title } = Astro.props;
 
-const images = import.meta.glob<ImageMetadata>("../images/*.{jpg,jpeg,png}", {
-  eager: true,
-  import: "default",
-});
+const professionalProjects: Array<ProjectInfo> = Object.values(
+  professionalProjectFiles,
+).map(fileMapper);
 
-const showTestCard = true;
-
-function getImage(filename: string): ImageMetadata {
-  const image = images[`../images/${filename}`];
-  if (!image) throw new Error(`Image not found.`);
-  return image;
-}
-
-// Frontmatter as written in projects/**/*.md: the image is a filename,
-// resolved against src/images below.
-type ProjectFrontmatter = Omit<
-  ProjectInfo,
-  "projectImage" | "projectDescription"
-> & {
-  projectImage: string;
-};
-
-const schoolProjectFiles = import.meta.glob<
-  MarkdownInstance<ProjectFrontmatter>
->("../../projects/school/*.md", { eager: true });
-
-const schoolProjects: Array<ProjectInfo> = Object.values(
-  schoolProjectFiles,
-).map((file) => ({
-  ...file.frontmatter,
-  projectImage: getImage(file.frontmatter.projectImage),
-  projectDescription: file.rawContent().trim(),
-}));
+const schoolProjects: Array<ProjectInfo> =
+  Object.values(schoolProjectFiles).map(fileMapper);
 ---
 
 <html lang="en">

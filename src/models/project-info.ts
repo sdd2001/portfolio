@@ -9,3 +9,10 @@ export interface ProjectInfo {
   site?: string;
   sourceCode?: string;
 }
+
+export type ProjectFrontmatter = Omit<
+  ProjectInfo,
+  "projectImage" | "projectDescription"
+> & {
+  projectImage: string;
+};
