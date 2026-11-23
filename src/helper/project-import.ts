@@ -5,7 +5,9 @@ import type {
 } from "../models/project-info.ts";
 import { getImage } from "./images.ts";
 
-export const fileMapper = (file: MarkdownInstance<ProjectFrontmatter>) => ({
+export const fileMapper = (
+  file: MarkdownInstance<ProjectFrontmatter>,
+): ProjectInfo => ({
   ...file.frontmatter,
   projectImage: getImage(file.frontmatter.projectImage),
   projectDescription: file.rawContent().trim(),

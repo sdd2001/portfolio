@@ -9,5 +9,19 @@ export default tseslint.config(
   },
   eslint.configs.recommended,
   ...eslintPluginAstro.configs.recommended,
+  {
+    files: ["**/*.ts"],
+    languageOptions: {
+      parser: tseslint.parser,
+    },
+  },
+  {
+    // TypeScript already reports undefined names, and no-undef doesn't know
+    // Astro's ambient globals such as ImageMetadata.
+    files: ["**/*.ts", "**/*.astro"],
+    rules: {
+      "no-undef": "off",
+    },
+  },
   eslintConfigPrettier,
 );

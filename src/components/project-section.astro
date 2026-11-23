@@ -3,7 +3,7 @@ import type { ProjectInfo } from "../models/project-info.ts";
 import ProjectCard from "./project-card.astro";
 interface Props {
   sectionTitle: string;
-  projects: Array<ProjectInfo>
+  projects: Array<ProjectInfo>;
   eyebrow?: string;
   sectionSummary?: string;
 }
@@ -19,11 +19,9 @@ const { sectionTitle, projects, eyebrow, sectionSummary } = Astro.props;
       {sectionSummary && <p class="section-summary">{sectionSummary}</p>}
     </div>
     <div class="projects-container">
-      {
-        projects.map((project) => (
-          <ProjectCard projectInfo={project} />
-        ))
-      }
+      {projects.map((project) => (
+        <ProjectCard projectInfo={project} />
+      ))}
     </div>
   </div>
 </div>
