@@ -5,62 +5,42 @@ import * as profile from "../../profile/profile.md";
 import ProjectCard from "../components/project-card.astro";
 import type { ProjectInfo } from "../models/project-info.ts";
 import ProjectSection from "../components/project-section.astro";
+import type { MarkdownInstance } from "astro";
 const { title } = Astro.props;
 
-const images = import.meta.glob<ImageMetadata>("../images/*.jpg", {
+const images = import.meta.glob<ImageMetadata>("../images/*.{jpg,jpeg,png}", {
   eager: true,
   import: "default",
 });
 
 const showTestCard = true;
 
-const testSkillStack = [
-  {
-    name: "React",
-    backgroundColour: "#e2ebf8",
-    textColour: "#0e3162",
-    borderColour: "#b0c3dd",
-  },
-  {
-    name: "Typescript",
-    backgroundColour: "#e2f8f6",
-    textColour: "#0e625b",
-    borderColour: "#b0ddda",
-  },
-];
-
-function getProfileImage(): ImageMetadata {
-  const image = images[`../images/${profile.frontmatter.image}`];
-  if (!image) throw new Error(`Image not found for profile`);
+function getImage(filename: string): ImageMetadata {
+  const image = images[`../images/${filename}`];
+  if (!image) throw new Error(`Image not found.`);
   return image;
 }
 
-const testProjects: Array<ProjectInfo> = [
-  {
-    projectImage: getProfileImage(),
-    employer: "Test employer",
-    projectName: "Test project 1",
-    projectDescription: "This is a random description about a test project. This has no added value whatsoever!",
-    skillStack: testSkillStack,
-    site: "https://www.linkedin.com/in/sean-de-decker-03b4a8221/",
-    sourceCode: "https://github.com/sdd2001/portfolio",
-  },
-  {
-    projectImage: getProfileImage(),
-    employer: "Another test employer",
-    projectName: "Test project 2",
-    projectDescription: "A second test project, here to check how multiple cards render next to each other.",
-    skillStack: testSkillStack,
-    site: "https://www.linkedin.com/in/sean-de-decker-03b4a8221/",
-  },
-  {
-    projectImage: getProfileImage(),
-    employer: "Test employer",
-    projectName: "Test project 3",
-    projectDescription: "A third test project without links, to check the card layout when optional fields are missing.",
-    skillStack: [testSkillStack[0]],
-  },
-];
+// Frontmatter as written in projects/**/*.md: the image is a filename,
+// resolved against src/images below.
+type ProjectFrontmatter = Omit<
+  ProjectInfo,
+  "projectImage" | "projectDescription"
+> & {
+  projectImage: string;
+};
+
+const schoolProjectFiles = import.meta.glob<
+  MarkdownInstance<ProjectFrontmatter>
+>("../../projects/school/*.md", { eager: true });
+
+const schoolProjects: Array<ProjectInfo> = Object.values(
+  schoolProjectFiles,
+).map((file) => ({
+  ...file.frontmatter,
+  projectImage: getImage(file.frontmatter.projectImage),
+  projectDescription: file.rawContent().trim(),
+}));
 ---
 
 <html lang="en">
@@ -75,10 +55,15 @@ const testProjects: Array<ProjectInfo> = [
       name={profile.frontmatter.name}
       about={profile.rawContent()}
       jobTitle={profile.frontmatter.jobTitle}
-      profilePicture={getProfileImage()}
+      profilePicture={getImage(profile.frontmatter.image)}
     />
     {showTestCard && (
-      <ProjectSection sectionTitle="Test projects"  projects={testProjects} eyebrow="testing" sectionSummary="This is a test for the project section component" />
+      <ProjectSection
+        sectionTitle="School projects"
+        projects={schoolProjects}
+        eyebrow="Thomas More"
+        sectionSummary="relevant projects I worked on during my studies."
+      />
     )}
   </body>
 </html>
