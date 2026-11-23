@@ -34,13 +34,17 @@ const schoolProjects: Array<ProjectInfo> =
       jobTitle={profile.frontmatter.jobTitle}
       profilePicture={getImage(profile.frontmatter.image)}
     />
-    {showTestCard && (
-      <ProjectSection
-        sectionTitle="School projects"
-        projects={schoolProjects}
-        eyebrow="Thomas More"
-        sectionSummary="relevant projects I worked on during my studies."
-      />
-    )}
+    <ProjectSection
+      sectionTitle="Professional projects"
+      projects={professionalProjects}
+      eyebrow="Various employers"
+      sectionSummary="Professional projects I worked on during my career for various employers"
+    />
+    <ProjectSection
+      sectionTitle="School projects"
+      projects={schoolProjects}
+      eyebrow="Thomas More"
+      sectionSummary="relevant projects I worked on during my studies."
+    />
   </body>
 </html>
