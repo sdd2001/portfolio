@@ -20,3 +20,7 @@ export const professionalProjectFiles = import.meta.glob<
 export const schoolProjectFiles = import.meta.glob<
   MarkdownInstance<ProjectFrontmatter>
 >("../../projects/school/*.md", { eager: true });
+
+export const personalProjectFiles = import.meta.glob<
+  MarkdownInstance<ProjectFrontmatter>
+>("../../projects/personal/*.md", { eager: true });

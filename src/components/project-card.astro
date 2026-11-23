@@ -18,7 +18,7 @@ const {
   sourceCode,
 } = Astro.props.projectInfo;
 
-const showLinks = site !== undefined && sourceCode !== undefined;
+const showLinks = site !== undefined || sourceCode !== undefined;
 ---
 
 <article class="project-card">
