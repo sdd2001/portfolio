@@ -6,7 +6,7 @@ import Link from "./link.astro";
 import type { ProjectInfo } from "../models/project-info.ts";
 
 interface Props {
-  projectInfo: ProjectInfo
+  projectInfo: ProjectInfo;
 }
 
 const {
@@ -18,6 +18,8 @@ const {
   site,
   sourceCode,
 } = Astro.props.projectInfo;
+
+const showLinks = site !== undefined && sourceCode !== undefined;
 ---
 
 <article class="project-card">
@@ -38,18 +40,20 @@ const {
         <SkillPill skill={skill} />
       ))}
     </div>
-    <div class="project-links">
-      {site && (
-        <Link
-          label="Project site"
-          link={site}
-          icon="arrow-up-right-from-square"
-        />
-      )}
-      {sourceCode && (
-        <Link label="Source code" link={sourceCode} icon="github" />
-      )}
-    </div>
+    {showLinks && (
+      <div class="project-links">
+        {site && (
+          <Link
+            label="Project site"
+            link={site}
+            icon="arrow-up-right-from-square"
+          />
+        )}
+        {sourceCode && (
+          <Link label="Source code" link={sourceCode} icon="github" />
+        )}
+      </div>
+    )}
   </div>
 </article>
 
