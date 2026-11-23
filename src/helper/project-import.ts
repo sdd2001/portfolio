@@ -5,13 +5,20 @@ import type {
 } from "../models/project-info.ts";
 import { getImage } from "./images.ts";
 
-export const fileMapper = (
-  file: MarkdownInstance<ProjectFrontmatter>,
-): ProjectInfo => ({
-  ...file.frontmatter,
-  projectImage: getImage(file.frontmatter.projectImage),
-  projectDescription: file.rawContent().trim(),
-});
+export const filesMapper = (
+  files: Record<string, MarkdownInstance<ProjectFrontmatter>>,
+): Array<ProjectInfo> =>
+  Object.values(files)
+    .map((file) => ({
+      ...file.frontmatter,
+      projectImage: getImage(file.frontmatter.projectImage),
+      projectDescription: file.rawContent().trim(),
+    }))
+    .sort(
+      (a, b) =>
+        a.employer.localeCompare(b.employer) ||
+        a.projectName.localeCompare(b.projectName),
+    );
 
 export const professionalProjectFiles = import.meta.glob<
   MarkdownInstance<ProjectFrontmatter>

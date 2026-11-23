@@ -5,7 +5,7 @@ import * as profile from "../../profile/profile.md";
 import type { ProjectInfo } from "../models/project-info.ts";
 import ProjectSection from "../components/project-section.astro";
 import {
-  fileMapper,
+  filesMapper,
   personalProjectFiles,
   professionalProjectFiles,
   schoolProjectFiles,
@@ -13,15 +13,13 @@ import {
 import { getImage } from "../helper/images.ts";
 const { title } = Astro.props;
 
-const professionalProjects: Array<ProjectInfo> = Object.values(
+const professionalProjects: Array<ProjectInfo> = filesMapper(
   professionalProjectFiles,
-).map(fileMapper);
+);
 
-const schoolProjects: Array<ProjectInfo> =
-  Object.values(schoolProjectFiles).map(fileMapper);
+const schoolProjects: Array<ProjectInfo> = filesMapper(schoolProjectFiles);
 
-const personalProjects: Array<ProjectInfo> =
-  Object.values(personalProjectFiles).map(fileMapper);
+const personalProjects: Array<ProjectInfo> = filesMapper(personalProjectFiles);
 ---
 
 <html lang="en">
